@@ -16,6 +16,7 @@ import {
     navigationMenuTriggerStyle,
   } from '@/components/ui/navigation-menu';
 import { cn } from '@/lib/utils';
+import { Button } from '../ui/button';
 
 const routes = [
     {title: 'Features', href: '#features'},
@@ -72,7 +73,7 @@ const Header = () => {
     <header className='p-4 flex justify-center items-center'>
         <Link 
             href='/'
-            className='w-full flex gap-2 justify-center items-center'
+            className='w-full flex gap-2 justify-left items-center'
         >
             <Image 
                 src={Logo} 
@@ -81,7 +82,7 @@ const Header = () => {
                 height={25}
             />
             <span className='font-semibold dark:text-white'>
-                cypress.
+                Notion Clone.
             </span>
         </Link>
         <NavigationMenu className='hidden md:block'>
@@ -137,8 +138,74 @@ const Header = () => {
                         </ul>
                     </NavigationMenuContent>
                 </NavigationMenuItem>
+                <NavigationMenuItem>
+                    <NavigationMenuTrigger 
+                        onClick={() => setPath('#pricing')}
+                        className={cn({
+                            'dark:text-white': path === '#pricing',
+                            'dark:text-white/40': path !== '#pricing',
+                            'font-normal': true,
+                            'text-xl': true,
+                        })}
+                    >
+                        Pricing
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                        <ul className='grid w-[400px] gap-3 p-4 md:grid-row-2'>
+                            <ListItem
+                                title="Pro Plan"
+                                href={'#'}
+                            >
+                                Unlock full power with collaboration.
+                            </ListItem>
+                            <ListItem
+                                title={'free Plan'}
+                                href={'#'}
+                            >
+                                Great for teams just starting out.
+                            </ListItem>
+                        </ul>
+                    </NavigationMenuContent>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                    <NavigationMenuContent>
+                        <ul className='grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]'>
+                            {components.map((component) => (
+                                <ListItem
+                                    key={component.title}
+                                    title={component.title}
+                                    href={component.href}
+                                >
+                                    {component.description}
+                                </ListItem>
+                            ))}
+                        </ul>
+                    </NavigationMenuContent>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                    <NavigationMenuLink
+                        className={cn(navigationMenuTriggerStyle(), {
+                            'dark:text-white': path === '#testimonial',
+                            'dark:text-white/40': path !== '#testimonial',
+                            'font-normal': true,
+                            'text-xl': true
+                        })}
+                    >
+                        Testimonial
+                    </NavigationMenuLink>
+                </NavigationMenuItem>
             </NavigationMenuList>
         </NavigationMenu>
+        <aside className='flex w-full gap-2 justify-end'>
+            <Link href={'/login'}>
+                <Button variant='btn-secondary' className='p-1 hidden md:block'>Login</Button>
+            </Link>
+            <Link href={'/signup'}>
+                <Button variant='btn-primary' className='whitespace-nowrap'>
+                    Sign Up
+                </Button>
+            </Link>
+        </aside>
     </header>
   )
 }
